@@ -7,6 +7,7 @@ exports.addUser = async (req, res) => {
         res.status(200).send({ message: "Successfully added user", newUser });
     } catch (error) {
         console.log(error)
+        res.status(500).send({message: "Unsucessful, please check again"})
     }
 }
 
@@ -21,8 +22,18 @@ exports.listUsers = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
     try {
-        user = await User.findOneAndUpdate(req.body, {upsert: true})
-        res.status(200).send({message: "Successfully updated user", user});
+        User.findByIdAndUpdate(req.body._id, req.body);
+        updatedUser = await User.findById(req.body._id);
+        res.status(200).send({message: "Successfully updated user", updatedUser});
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+exports.deleteUser = async (req, res) => {
+    try {
+        deleted = await User.findByIdAndDelete(req.body._id)
+        res.status(200).send({message: "Successfully deleted user", deleted});
     } catch (error) {
         console.log(error)
     }
