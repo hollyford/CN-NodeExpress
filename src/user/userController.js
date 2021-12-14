@@ -38,3 +38,11 @@ exports.deleteUser = async (req, res) => {
         console.log(error)
     }
 }
+
+// exports.checkPassword = async (req, res) => {
+//     try {
+        
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
